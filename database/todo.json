@@ -22,7 +22,7 @@
     },
     {
       "todo": "Tumi amar",
-      "status": true,
+      "status": false,
       "id": 5
     },
     {
@@ -51,7 +51,7 @@
       "id": 10
     },
     {
-      "todo": "ok",
+      "todo": "Mitu",
       "status": true,
       "id": 11
     }
