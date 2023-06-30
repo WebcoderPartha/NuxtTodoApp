@@ -7,12 +7,12 @@
     },
     {
       "todo": "sfsdf",
-      "status": true,
+      "status": false,
       "id": 2
     },
     {
       "todo": "sfsdf",
-      "status": true,
+      "status": false,
       "id": 3
     },
     {
@@ -27,22 +27,22 @@
     },
     {
       "todo": "ok",
-      "status": true,
+      "status": false,
       "id": 6
     },
     {
       "todo": "ldfsdf",
-      "status": true,
+      "status": false,
       "id": 7
     },
     {
       "todo": "tumi",
-      "status": true,
+      "status": false,
       "id": 8
     },
     {
       "todo": "ami",
-      "status": true,
+      "status": false,
       "id": 9
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       "todo": "Mitu",
-      "status": true,
+      "status": false,
       "id": 11
     }
   ]

@@ -51,10 +51,12 @@
             <h5 v-else class="mb-2 text-2xl tracking-tight text-red-700 line-through">{{ todo.todo }}</h5>
           </div>
           <div>
-            <button class="text-fuchsia-950">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <button   @click="taskDone"  class="text-fuchsia-950">
+            
+                <svg :data-todo="todo.todo" :data-id="todo.id" v-if="todo.status" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path  stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
+        
             </button>
             &nbsp;
             <button class="text-red-900">
@@ -67,6 +69,7 @@
       </div>
   
     </div>
+
 
   </div>
 </template>
@@ -114,11 +117,23 @@ const todoHandle = async (e) => {
   }
 };
 
-
-
-const {data:tododatalist} = await useFetch('http://localhost:5000/todo', {method:'GET'})
+const {data:tododatalist, refresh} = await useFetch('http://localhost:5000/todo', {method:'GET'})
 todolist.value = tododatalist
- console.log(todolist.value)
+
+const taskDone = async (e) => {
+  const buttonData = {
+    todo: e.target.getAttribute('data-todo'),
+    status: false,
+    id : e.target.getAttribute('data-id'),
+  }
+  console.log(buttonData)
+  await useFetch('http://localhost:5000/todo/'+buttonData.id, {
+    method:'PUT',
+    body: JSON.stringify(buttonData)
+  })
+  refresh()
+
+}
 
     
 </script>
