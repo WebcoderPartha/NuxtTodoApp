@@ -59,7 +59,7 @@
         
             </button>
             &nbsp;
-            <button class="text-red-900">
+            <button @click="taskDelete(todo.id)" class="text-red-900">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -89,6 +89,9 @@ const error = useState(() => ({
   error: "",
 }));
 
+const {data:tododatalist, refresh} = await useFetch('http://localhost:5000/todo', {method:'GET'})
+todolist.value = tododatalist
+
 const isPending = ref(false);
 
 const todoHandle = async (e) => {
@@ -112,21 +115,19 @@ const todoHandle = async (e) => {
     isPending.value = false;
     (error.value.error = ""), (todo.value.todo = "");
     e.target.reset();
-    const {data:tododatalist} = await useFetch('http://localhost:5000/todo', {method:'GET'})
-    todolist.value = tododatalist
+    refresh()
   }
 };
 
-const {data:tododatalist, refresh} = await useFetch('http://localhost:5000/todo', {method:'GET'})
-todolist.value = tododatalist
 
+
+// Todo Task done
 const taskDone = async (e) => {
   const buttonData = {
     todo: e.target.getAttribute('data-todo'),
     status: false,
     id : e.target.getAttribute('data-id'),
   }
-  console.log(buttonData)
   await useFetch('http://localhost:5000/todo/'+buttonData.id, {
     method:'PUT',
     body: JSON.stringify(buttonData)
@@ -135,6 +136,16 @@ const taskDone = async (e) => {
 
 }
 
+// Todo task delete
+const taskDelete = async (id) => {
+
+  await useFetch('http://localhost:5000/todo/'+id, {
+    method:'DELETE',
+  })
+
+  refresh()
+
+}
     
 </script>
 
